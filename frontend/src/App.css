@@ -1,3 +1,8 @@
+/* 🌟 全域 Box-Sizing 重置，這行能救命，防止 Padding 撐破 Grid */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* 主題全面換裝極簡銀風格變數系統 (Minimalist Silver Theme) */
 :root {
   --background: 210 20% 98%;       
@@ -273,50 +278,4 @@ body {
   .drinks-grid-fullwidth { grid-template-columns: 1fr !important; }
   .calc-checkbox-list { max-height: 250px; }
   .modal-content { width: 90% !important; max-width: 400px; padding: 15px !important; }
-} /* 🚨🚨🚨 確保這個大括號有閉合！！🚨🚨🚨 */
-
-/* ========================================= */
-/* 🌟 下面才是 Calendar 元件專用樣式 (必須在 media query 外面) */
-/* ========================================= */
-.calendar-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-
-.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-
-.calendar-grid { 
-  display: grid; 
-  grid-template-columns: repeat(7, 1fr); 
-  grid-auto-rows: minmax(130px, auto); /* 強制高度，防止塌陷 */
-  gap: 10px; 
-}
-
-.calendar-cell { 
-  background: hsl(var(--card)); 
-  border: 1px solid hsl(var(--ui-border)); 
-  border-radius: 8px; 
-  padding: 8px; 
-  text-align: left; 
-  box-sizing: border-box; 
-  overflow: hidden;
-}
-
-.calendar-cell-empty { 
-  background: hsl(var(--background));
-  border: 1px solid hsl(var(--ui-border));
-  border-radius: 8px;
-  opacity: 0.5;
-  box-sizing: border-box;
-}
-
-.day-number { font-weight: 800; margin-bottom: 8px; }
-
-.record-pill { 
-  background: hsl(var(--background)); padding: 4px 8px; border-radius: 4px; 
-  margin-bottom: 4px; cursor: pointer; border: 1px solid hsl(var(--ui-border)); 
-  font-size: 0.85rem; 
-}
-
-.modal-content-inner { padding: 2.2rem 2rem 2rem 2rem; }
-.delete-btn { 
-  background: #ef4444; color: white; border: none; padding: 10px 20px; 
-  border-radius: 6px; cursor: pointer; margin-top: 20px; 
 }

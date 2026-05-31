@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { RecordContext } from "../App"; 
 
-export default function Calendar() {
+export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const { records, deleteRecord } = useContext(RecordContext);
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -20,6 +20,7 @@ export default function Calendar() {
 
   return (
     <div style={{ maxWidth: "1000px", margin: "40px auto", padding: "0 20px" }}>
+      
       {/* 導覽列 */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
         <button className="lang-toggle" onClick={() => setCurrentDate(new Date(year, month - 1, 1))}>◀ 上個月</button>
@@ -27,62 +28,81 @@ export default function Calendar() {
         <button className="lang-toggle" onClick={() => setCurrentDate(new Date(year, month + 1, 1))}>下個月 ▶</button>
       </div>
 
-      {/* 星期幾的標題 (強制 7 欄 Grid) */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "10px", marginBottom: "12px" }}>
-        {weekDays.map((d) => (
-          <div key={d} style={{ fontWeight: "bold", color: "hsl(var(--muted-foreground))", textAlign: "center" }}>
-            {d}
+      {/* 🌟 關鍵救星：加入 overflowX: "auto"，讓太窄的螢幕可以左右滑動 */}
+      <div style={{ width: "100%", overflowX: "auto", paddingBottom: "10px" }}>
+        
+        {/* 🌟 設定 minWidth: "800px"，確保格子永遠不會被擠壓到變形！ */}
+        <div style={{ minWidth: "800px" }}>
+          
+          {/* 星期幾的標題 */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "10px", marginBottom: "12px" }}>
+            {weekDays.map((d) => (
+              <div key={d} style={{ fontWeight: "bold", color: "hsl(var(--muted-foreground))", textAlign: "center" }}>
+                {d}
+              </div>
+            ))}
           </div>
-        ))}
+
+          {/* 日曆主體格子 */}
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(7, 1fr)", 
+            gridAutoRows: "minmax(130px, auto)", 
+            gap: "10px" 
+          }}>
+            {days.map((day, index) => {
+              const padDay = day ? String(day).padStart(2, '0') : "";
+              const dateKey = day ? `${year}-${padMonth}-${padDay}` : "";
+              const dayRecords = (day && Array.isArray(records[dateKey])) ? records[dateKey] : [];
+
+              return (
+                <div key={`${year}-${month}-${index}`} style={{
+                  background: day ? "hsl(var(--card))" : "transparent",
+                  border: day ? "1px solid hsl(var(--ui-border))" : "1px solid transparent",
+                  borderRadius: "8px",
+                  padding: "8px",
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: "130px",
+                  opacity: day ? 1 : 0.3,
+                  boxSizing: "border-box",
+                  overflow: "hidden" // 防止單一格子內容爆出去
+                }}>
+                  {day && (
+                    <>
+                      <div style={{ fontWeight: "800", marginBottom: "8px", fontSize: "1rem" }}>{day}</div>
+                      <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "4px" }}>
+                        {dayRecords.map((record, i) => (
+                          <div 
+                            key={record.id || i} 
+                            onClick={() => setSelectedRecord({ ...record, dateKey: dateKey, id: record.id })}
+                            style={{
+                              background: "hsl(var(--background))", 
+                              padding: "4px 6px", 
+                              borderRadius: "4px",
+                              cursor: "pointer", 
+                              border: "1px solid hsl(var(--ui-border))",
+                              fontSize: "0.75rem", 
+                              whiteSpace: "nowrap", 
+                              textOverflow: "ellipsis", 
+                              overflow: "hidden"
+                            }}
+                          >
+                            {record.emoji} {record.name}
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
       </div>
 
-      {/* 日曆主體格子 (強制 7 欄 Grid + 強制高度防止塌陷) */}
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "repeat(7, 1fr)", 
-        gridAutoRows: "minmax(130px, auto)", /* 🌟 救星屬性直接寫在這裡 */
-        gap: "10px" 
-      }}>
-        {days.map((day, index) => {
-          const padDay = day ? String(day).padStart(2, '0') : "";
-          const dateKey = day ? `${year}-${padMonth}-${padDay}` : "";
-          const dayRecords = Array.isArray(records[dateKey]) ? records[dateKey] : [];
-
-          return (
-            <div key={index} style={{
-              background: day ? "hsl(var(--card))" : "hsl(var(--background))",
-              border: "1px solid hsl(var(--ui-border))",
-              borderRadius: "8px",
-              padding: "8px",
-              textAlign: "left",
-              opacity: day ? 1 : 0.5,
-              boxSizing: "border-box",
-              overflow: "hidden"
-            }}>
-              {day && (
-                <>
-                  <div style={{ fontWeight: "800", marginBottom: "8px" }}>{day}</div>
-                  {dayRecords.map((record, i) => (
-                    <div 
-                      key={i} 
-                      onClick={() => setSelectedRecord({ ...record, dateKey: dateKey, id: record.id })}
-                      style={{
-                        background: "hsl(var(--background))", padding: "4px 8px", borderRadius: "4px",
-                        marginBottom: "4px", cursor: "pointer", border: "1px solid hsl(var(--ui-border))",
-                        fontSize: "0.85rem"
-                      }}
-                    >
-                      {record.emoji} {record.name}
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 彈窗 Modal 保持不變 */}
+      {/* 彈窗 Modal */}
       {selectedRecord && (
         <div className="modal-overlay" onClick={() => setSelectedRecord(null)}>
           <div className="standard-card-style" onClick={(e) => e.stopPropagation()}>
@@ -94,7 +114,7 @@ export default function Calendar() {
             <p className="modal-info-box-clean">心得：{selectedRecord.item}</p>
             <div style={{ marginTop: "10px" }} className="card-rating">{selectedRecord.rating}</div>
             <button 
-              style={{ background: "#ef4444", color: "white", border: "none", padding: "10px 20px", borderRadius: "6px", cursor: "pointer", marginTop: "20px" }}
+              style={{ background: "#ef4444", color: "white", border: "none", padding: "10px 20px", borderRadius: "6px", cursor: "pointer", marginTop: "20px", fontWeight: "bold" }}
               onClick={(e) => { 
                 e.stopPropagation(); 
                 deleteRecord(selectedRecord.dateKey, selectedRecord.id); 
