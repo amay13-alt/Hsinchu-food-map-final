@@ -6,8 +6,8 @@ import { createContext, useState, useEffect } from "react";
 
 import Header from "./Components/Header";
 import HomePage from "./pages/HomePage";
-import Calendar from "./pages/CalendarPage";
-import UploadPage from "./pages/UploadPage";
+import Calendar from "./pages/Calendar"; 
+import UploadPage from "./pages/UploadPage";  
 
 // 建立 Context
 export const RecordContext = createContext();
