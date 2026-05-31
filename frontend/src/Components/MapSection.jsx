@@ -2,12 +2,14 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-// 修正 Leaflet 預設 marker 圖示消失的問題
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+// 🌟 終極解法：強制指定 Icon 使用外部圖床
+const customIcon = new L.Icon({
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
 });
 
 function MapSection({ stores, selectedStore, setSelectedStore }) {
@@ -28,6 +30,7 @@ function MapSection({ stores, selectedStore, setSelectedStore }) {
           <Marker
             key={store.id ?? index}
             position={[store.lat, store.lng]}
+            icon={customIcon} /* 🌟 套用自訂 Icon */
             eventHandlers={{
               click: () => setSelectedStore(store),
             }}
