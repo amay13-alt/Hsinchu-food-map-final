@@ -1,0 +1,322 @@
+/* 主題全面換裝極簡銀風格變數系統 (Minimalist Silver Theme) */
+:root {
+  --background: 210 20% 98%;       
+  --foreground: 224 71% 4%;        
+  --primary: 220 14% 45%;          
+  --primary-foreground: 0 0% 100%;
+  --muted: 220 14% 94%;            
+  --muted-foreground: 220 9% 46%;  
+  --card: 0 0% 100%;
+  --ui-border: 220 13% 89%;        
+  --radius: 0.5rem;                
+}
+
+/* 💡 新增深色模式 HSL 對照組，防止黑夜模式瞎眼 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 224 71% 4%;
+    --foreground: 210 20% 98%;
+    --primary: 220 9% 70%;
+    --muted: 224 71% 8%;
+    --muted-foreground: 220 9% 60%;
+    --card: 224 71% 6%;
+    --ui-border: 220 13% 20%;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+
+.centered-header {
+  background-color: hsl(var(--card));
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid hsl(var(--ui-border));
+  position: relative;
+}
+
+.centered-header h1 { 
+  margin: 0 0 10px 0; 
+  font-weight: 800; 
+  letter-spacing: -0.06rem; 
+  font-size: 2.2rem;
+  color: hsl(var(--foreground));
+}
+.centered-header p { 
+  color: hsl(var(--muted-foreground)); 
+  margin: 0; 
+  font-size: 0.95rem; 
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+}
+
+/* 指示燈靠左 */
+.header-widgets-left {
+  position: absolute; left: 24px; top: 50%; transform: translateY(-50%);
+  display: flex; align-items: center; gap: 10px;
+}
+.header-widgets-right {
+  position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.db-indicator {
+  display: flex; align-items: center; gap: 6px;
+  background: hsl(var(--background)); border: 1px solid hsl(var(--ui-border)); padding: 5px 12px; border-radius: 4px;
+}
+
+.db-indicator.connected .pulse-dot {
+  background-color: #22c55e !important; 
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  animation: pulseGreen 1.5s infinite;
+}
+.db-indicator.fallback .pulse-dot {
+  background-color: #ef4444 !important; 
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
+  animation: pulseRed 1.5s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+@keyframes pulseRed {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.pulse-dot { width: 8px; height: 8px; border-radius: 50%; }
+.indicator-text { font-size: 0.75rem; color: hsl(var(--muted-foreground)); font-weight: 600; }
+.lang-toggle { background: hsl(var(--card)); border: 1px solid hsl(var(--ui-border)); color: hsl(var(--foreground)); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.lang-toggle:hover { background: hsl(var(--background)); }
+
+.google-suggestions-list {
+  position: absolute; top: 100%; left: 0; width: 100%;
+  background: hsl(var(--card)); border: 1px solid hsl(var(--ui-border)); border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 0; margin: 4px 0 0 0;
+  list-style: none; z-index: 1000; text-align: left; overflow: hidden;
+}
+.google-suggestions-list li { padding: 10px 14px; font-size: 0.85rem; cursor: pointer; color: hsl(var(--foreground)); transition: background 0.15s; }
+.google-suggestions-list li:hover { background: hsl(var(--background)); color: hsl(var(--primary)); }
+
+/* ========================================= */
+/* 🌟 電腦版與手機版共用的完美排版區塊 */
+/* ========================================= */
+
+.top-workspace-row {
+  display: flex; 
+  flex-direction: column; 
+  width: 100%;            /* 🌟 強制拿滿畫面寬度 */
+  max-width: 1140px;      /* 🌟 限制最大寬度，保持美觀 */
+  margin: 20px auto; 
+  gap: 20px; 
+  padding: 0 20px; 
+  box-sizing: border-box; /* 🌟 確保 padding 不會撐破版面 */
+}
+
+.controls-box-left {
+  width: 100%;            /* 🌟 填滿外層 1140px */
+  box-sizing: border-box;
+  background: hsl(var(--card)); 
+  padding: 20px; 
+  border-radius: var(--radius); 
+  border: 1px solid hsl(var(--ui-border));
+  display: flex; 
+  flex-direction: column; 
+  gap: 15px; 
+}
+
+/* 確保輸入框不會超出框框 */
+.search-input-modern-fluid { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid hsl(var(--ui-border)); background: hsl(var(--card)); color: hsl(var(--foreground)); border-radius: 6px; font-size: 0.9rem; }
+.dropdowns-row-flex { display: flex; gap: 15px; width: 100%; box-sizing: border-box; }
+.filter-field-modern { flex: 1; display: flex; flex-direction: column; text-align: left; }
+.filter-field-modern label { font-size: 0.8rem; font-weight: 700; color: hsl(var(--muted-foreground)); margin-bottom: 6px; }
+/* 確保下拉選單也不會超出框框 */
+.filter-field-modern select { width: 100%; box-sizing: border-box !important; padding: 10px !important; border: 1px solid hsl(var(--ui-border)) !important; border-radius: 6px !important; background: hsl(var(--card)); color: hsl(var(--foreground)); font-size: 0.9rem !important; }
+
+.slider-box-inline { background: hsl(var(--background)); border: 1px solid hsl(var(--ui-border)); padding: 6px 12px; border-radius: 4px; display: flex; align-items: center; gap: 10px; }
+.slider-title-text { font-size: 0.75rem; font-weight: 700; color: hsl(var(--muted-foreground)); white-space: nowrap; }
+.price-slider-fluid { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; background: hsl(var(--ui-border)); border-radius: 2px; }
+.price-slider-fluid::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #475569; cursor: pointer; }
+.slider-price-badge { font-size: 0.75rem; font-weight: 700; color: hsl(var(--foreground)); white-space: nowrap; }
+
+.control-buttons-row { display: flex; gap: 8px; }
+.btn-action-draw { flex: 1.5; background: #475569; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
+.btn-action-reset { flex: 1; background: hsl(var(--card)); color: hsl(var(--foreground)); border: 1px solid hsl(var(--ui-border)); padding: 10px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+
+.map-box-right { 
+  width: 100%;            /* 🌟 讓地圖也填滿外層 1140px */
+  box-sizing: border-box;
+  height: 550px; 
+  border-radius: var(--radius); 
+  overflow: hidden; 
+  border: 1px solid hsl(var(--ui-border)); 
+  position: relative; 
+  z-index: 1; 
+}
+.map-fullscreen-toggle { position: absolute; top: 10px; right: 10px; z-index: 1000; background: hsl(var(--card)); color: hsl(var(--foreground)); border: 1px solid hsl(var(--ui-border)); padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+.map-box-right .leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: unset;
+}
+
+.results-count-banner { width: 100%; box-sizing: border-box; max-width: 1140px; margin: 0 auto 15px auto; font-size: 0.8rem; font-weight: 700; color: hsl(var(--muted-foreground)); text-align: left; padding: 0 20px; }
+.drinks-grid-fullwidth { width: 100%; box-sizing: border-box; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.25rem; padding: 0 20px; max-width: 1140px; margin: 0 auto; }
+
+/* 使用主題變數，確保亮暗模式都好看 */
+.drink-card {
+  background: hsl(var(--card)); /* 自動適應背景 */
+  border: 1px solid hsl(var(--ui-border)); /* 自動適應邊框顏色 */
+  border-radius: var(--radius); /* 使用全域設定的圓角 */
+  padding: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.2s ease; /* transition 改用 all 更滑順 */
+}
+
+.drink-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border-color: hsl(var(--primary)); /* 懸停時邊框微微變亮，更有質感 */
+}
+.card-rating { font-size: 0.8rem; font-weight: 700; color: #eab308; }
+.price-tag-styled { font-size: 1.05rem; font-weight: 800; color: hsl(var(--foreground)); margin-top: 10px; text-align: left; }
+.category-tag { font-size: 0.7rem; padding: 2px 6px; background: hsl(var(--background)); border-radius: 4px; color: hsl(var(--muted-foreground)); font-weight: 600; border: 1px solid hsl(var(--ui-border)); }
+.load-more-btn { max-width: 400px; width: 90%; padding: 12px; background: hsl(var(--card)); border: 1px solid hsl(var(--ui-border)); color: hsl(var(--foreground)); font-weight: 700; cursor: pointer; font-size: 0.85rem; }
+
+/* 💡 徹底解決固定中央彈窗排版問題 */
+.modal-overlay {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  width: 100vw !important; height: 100vh !important;
+  background: rgba(15, 23, 42, 0.3) !important;
+  backdrop-filter: blur(4px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 999999 !important; 
+}
+
+.modal-overlay-transparent {
+  position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important;
+  background: rgba(15, 23, 42, 0.4) !important; backdrop-filter: blur(8px); display: flex !important; align-items: center !important; justify-content: center !important; z-index: 999998 !important;
+}
+
+.standard-card-style {
+  background: hsl(var(--card)) !important; color: hsl(var(--foreground)) !important; padding: 2.2rem 2rem 2rem 2rem !important; border-radius: var(--radius) !important; max-width: 380px !important; width: 85% !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important; position: relative !important; text-align: center !important; border: 1px solid hsl(var(--ui-border));
+}
+
+.modal-content.map-maximized-card {
+  max-width: 800px !important; width: 88% !important; height: 80% !important;
+  text-align: left !important; padding: 2rem !important; display: flex !important; flex-direction: column !important; overflow: hidden !important;
+  animation: minimalistGlow 2s alternate infinite;
+}
+
+@keyframes minimalistGlow {
+  0% { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-color: hsl(var(--ui-border)); }
+  100% { box-shadow: 0 0 25px rgba(148, 163, 184, 0.4); border-color: #94a3b8; }
+}
+
+.map-modal-title { margin: 0 0 1rem 0 !important; font-weight: 800 !important; font-size: 1.6rem !important; color: hsl(var(--foreground)) !important; }
+.map-modal-frame { flex: 1 !important; border: 1px solid hsl(var(--ui-border)); border-radius: 8px; overflow: hidden; position: relative; z-index: 1 !important; }
+.map-modal-footer { margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+.results-badge-map { font-size: 0.8rem; font-weight: 700; color: hsl(var(--muted-foreground)); background: hsl(var(--background)); padding: 5px 12px; border-radius: 4px; border: 1px solid hsl(var(--ui-border)); }
+
+.modal-close-x {
+  position: absolute !important; top: 10px !important; right: 16px !important; background: none !important; border: none !important;
+  font-size: 1.6rem !important; color: #94a3b8 !important; cursor: pointer !important; z-index: 1001 !important;
+}
+.modal-close-x:hover { color: hsl(var(--foreground)) !important; }
+
+.lucky-glow { animation: silverPulse 2s infinite alternate !important; border: 2px solid #94a3b8 !important; }
+@keyframes silverPulse {
+  0% { box-shadow: 0 0 15px rgba(148, 163, 184, 0.3), 0 20px 25px -5px rgba(0,0,0,0.1) !important; }
+  100% { box-shadow: 0 0 30px rgba(148, 163, 184, 0.7), 0 20px 25px -5px rgba(0,0,0,0.1) !important; }
+}
+.lucky-crown-badge { background: #475569; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 800; display: inline-block; margin-bottom: 12px; }
+
+.modal-logo-centered { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin: 0 auto 8px auto; display: block; border: 2px solid hsl(var(--ui-border)); }
+.category-tag-modal { font-size: 0.7rem; background: hsl(var(--background)); color: hsl(var(--muted-foreground)); padding: 3px 8px; border-radius: 4px; font-weight: 600; border: 1px solid hsl(var(--ui-border)); }
+.google-rating-box-modal { font-size: 0.85rem; font-weight: 600; color: hsl(var(--muted-foreground)); margin-top: 5px; }
+.stars-accent { color: #eab308; font-weight: 700; }
+.feature-badge-centered { display: inline-block; background-color: hsl(var(--background)); color: hsl(var(--muted-foreground)); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid hsl(var(--ui-border)); }
+
+.calculator-zone { margin: 15px 0; border: 1px solid hsl(var(--ui-border)); border-radius: 6px; overflow: hidden; text-align: left; }
+.calc-title { background: hsl(var(--background)); color: hsl(var(--muted-foreground)); margin: 0; padding: 8px 12px; font-size: 0.8rem; font-weight: 700; border-bottom: 1px solid hsl(var(--ui-border)); }
+.calc-checkbox-list { padding: 6px; display: flex; flex-direction: column; gap: 5px; background: hsl(var(--card)); max-height: 120px; overflow-y: auto; }
+.calc-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; color: hsl(var(--foreground)); }
+.calc-item:hover { background: hsl(var(--background)); }
+.calc-item.selected { background: hsl(var(--background)); border: 1px solid hsl(var(--ui-border)); border-radius: 4px; }
+.calc-addon-price { font-weight: 700; color: #10b981; font-size: 0.75rem; }
+.calc-result-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(16, 185, 129, 0.1); border-top: 1px solid #bbf7d0; padding: 8px 12px; }
+.calc-result-bar span:first-child { font-size: 0.8rem; font-weight: 700; color: #166534; }
+.calc-total-num { font-size: 1.25rem; font-weight: 800; color: #10b981; }
+
+.modal-info-box-clean { font-size: 0.8rem; color: hsl(var(--foreground)); background: hsl(var(--background)); padding: 12px; border-radius: 6px; border: 1px solid hsl(var(--ui-border)); }
+.copy-addr-btn-modern { background: #475569; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.65rem; cursor: pointer; font-weight: bold; }
+.copy-addr-btn-modern:hover { background: #1e293b; }
+
+/* ========================================= */
+/* 📱 手機版專屬排版修復 (這段是原本的) */
+/* ========================================= */
+@media screen and (max-width: 768px) {
+  .map-box-right { height: 350px !important; }
+  .drinks-grid-fullwidth { grid-template-columns: 1fr !important; }
+  .calc-checkbox-list { max-height: 250px; }
+  .modal-content { width: 90% !important; max-width: 400px; padding: 15px !important; }
+} /* 🚨🚨🚨 確保這個大括號有閉合！！🚨🚨🚨 */
+
+/* ========================================= */
+/* 🌟 下面才是 Calendar 元件專用樣式 (必須在 media query 外面) */
+/* ========================================= */
+.calendar-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+
+.calendar-grid { 
+  display: grid; 
+  grid-template-columns: repeat(7, 1fr); 
+  grid-auto-rows: minmax(130px, auto); /* 強制高度，防止塌陷 */
+  gap: 10px; 
+}
+
+.calendar-cell { 
+  background: hsl(var(--card)); 
+  border: 1px solid hsl(var(--ui-border)); 
+  border-radius: 8px; 
+  padding: 8px; 
+  text-align: left; 
+  box-sizing: border-box; 
+  overflow: hidden;
+}
+
+.calendar-cell-empty { 
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--ui-border));
+  border-radius: 8px;
+  opacity: 0.5;
+  box-sizing: border-box;
+}
+
+.day-number { font-weight: 800; margin-bottom: 8px; }
+
+.record-pill { 
+  background: hsl(var(--background)); padding: 4px 8px; border-radius: 4px; 
+  margin-bottom: 4px; cursor: pointer; border: 1px solid hsl(var(--ui-border)); 
+  font-size: 0.85rem; 
+}
+
+.modal-content-inner { padding: 2.2rem 2rem 2rem 2rem; }
+.delete-btn { 
+  background: #ef4444; color: white; border: none; padding: 10px 20px; 
+  border-radius: 6px; cursor: pointer; margin-top: 20px; 
+}

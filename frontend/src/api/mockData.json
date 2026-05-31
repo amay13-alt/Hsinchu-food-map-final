@@ -1,0 +1,23 @@
+[
+  { "place_id": "P001", "name": "石二鍋", "category": "火鍋", "area": "巨城周邊", "tags": ["平價", "聚餐", "份量大"] },
+  { "place_id": "P002", "name": "六扇門", "category": "火鍋", "area": "城隍廟", "tags": ["平價", "聚餐", "份量大"] },
+  { "place_id": "P003", "name": "八二親食將軍村", "category": "火鍋", "area": "將軍村", "tags": ["聚餐", "約會推薦"] },
+  { "place_id": "P004", "name": "億品鍋", "category": "火鍋", "area": "動物園", "tags": ["平價", "聚餐"] },
+  { "place_id": "P005", "name": "禾豐自助餐", "category": "便當", "area": "動物園", "tags": ["平價", "份量大", "學生最愛"] },
+  { "place_id": "P006", "name": "廟口鴨香飯", "category": "小吃", "area": "城隍廟", "tags": ["排隊名店", "在地老店", "份量大"] },
+  { "place_id": "P007", "name": "黃媽媽豆瓣麵", "category": "小吃", "area": "清大夜市", "tags": ["學生最愛", "在地老店"] },
+  { "place_id": "P008", "name": "阿美泰泰", "category": "異國料理", "area": "巨城周邊", "tags": ["異國風味", "約會推薦"] },
+  { "place_id": "P009", "name": "秋賢越南美食", "category": "異國料理", "area": "動物園", "tags": ["異國風味", "平價"] },
+  { "place_id": "P010", "name": "小鵲幸車輪餅", "category": "點心", "area": "動物園", "tags": ["甜點控", "學生最愛"] },
+  { "place_id": "P011", "name": "升一排骨", "category": "便當", "area": "清大夜市", "tags": ["學生最愛", "平價", "份量大"] },
+  { "place_id": "P012", "name": "伊村燒肉飯", "category": "便當", "area": "動物園", "tags": ["平價", "份量大"] },
+  { "place_id": "P013", "name": "龍滿排骨", "category": "便當", "area": "清大夜市", "tags": ["學生最愛", "份量大"] },
+  { "place_id": "P014", "name": "公園黑乾麵", "category": "小吃", "area": "動物園", "tags": ["在地老店", "平價"] },
+  { "place_id": "P015", "name": "吉米洋食屋", "category": "異國料理", "area": "動物園", "tags": ["異國風味", "約會推薦"] },
+  { "place_id": "P016", "name": "永和豆漿大王", "category": "宵夜", "area": "清大夜市", "tags": ["宵夜推薦", "學生最愛"] },
+  { "place_id": "P017", "name": "歐爹", "category": "宵夜", "area": "站前商圈", "tags": ["宵夜推薦", "平價"] },
+  { "place_id": "P018", "name": "好豆味冰沙豆花", "category": "點心", "area": "站前商圈", "tags": ["甜點控", "約會推薦"] },
+  { "place_id": "P019", "name": "小木屋鬆餅", "category": "點心", "area": "清大夜市", "tags": ["甜點控", "學生最愛"] },
+  { "place_id": "P020", "name": "RT Baker House", "category": "點心", "area": "巨城周邊", "tags": ["甜點控", "約會推薦"] },
+  { "place_id": "P021", "name": "飴棠", "category": "點心", "area": "站前商圈", "tags": ["甜點控", "約會推薦"] }
+]

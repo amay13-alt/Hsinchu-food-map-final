@@ -1,0 +1,27 @@
+{
+  "name": "food_map_v1",
+  "version": "1.0.0",
+  "description": "本系統為資料庫管理期末專案，專門針對新竹食品路周邊連鎖手搖飲店進行多維度檢索。系統採用 **React (Vite)** 作為展示層、**Node.js (Express)** 作為應用層，並對接 **MySQL** 雙軌關聯式資料庫架構開發，完整實現 3NF 正規化設計與異質資料整合。",
+  "main": "test-logic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amay13-alt/drink-map-V3-improve.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/amay13-alt/drink-map-V3-improve/issues"
+  },
+  "homepage": "https://github.com/amay13-alt/drink-map-V3-improve#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.4"
+  }
+}

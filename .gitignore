@@ -1,0 +1,16 @@
+# 排除前後端的依賴套件（絕對不能推上 Git！）
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# 排除本地環境變數隱私檔（🚨 裡面有妳的 MySQL 密碼，千萬不能外洩）
+.env
+backend/.env
+
+# 排除前端編譯產出的打包資料夾
+dist/
+frontend/dist/
+
+# 排除系統暫存檔
+.DS_Store
+Thumbs.db
